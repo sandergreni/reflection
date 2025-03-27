@@ -51,9 +51,9 @@ namespace vs::json::set
 		v.SetNull();
 	}
 
-	void value(::rapidjson::Value& v, ::rapidjson::MemoryPoolAllocator<>&, double const f)
+	void value(::rapidjson::Value& v, ::rapidjson::MemoryPoolAllocator<>&, double const f, std::uint16_t const precision)
 	{
-		double const scale = 1'000'000'000'000.0;
+		double const scale = std::pow(10, precision);
 		v.SetDouble(std::round(f * scale) / scale);
 	}
 

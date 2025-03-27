@@ -57,7 +57,7 @@ namespace
 		folks.folks.push_back(me);
 
 		folks.folks.emplace_back("Jo Greni", 21, std::nullopt, true, std::nullopt, 179, 0.0);
-		ASSERT_EQ(vs::json::to_string(folks), R"({"folks":[{"name":"Sander Greni","age":51,"children":[{"name":"Jo","age":21},{"name":"Mikkel","age":18}],"good_looking":false,"spouse":{"name":"Marte","height":1.66},"height":null,"alcohol_level":3.14159265359},{"name":"Jo Greni","age":21,"children":null,"good_looking":true,"spouse":null,"height":179,"alcohol_level":0.0}]})");
+		ASSERT_EQ(vs::json::to_string(folks), R"({"folks":[{"name":"Sander Greni","age":51,"children":[{"name":"Jo","age":21},{"name":"Mikkel","age":18}],"good_looking":false,"spouse":{"name":"Marte","height":1.66},"height":null,"alcohol_level":3.141593},{"name":"Jo Greni","age":21,"children":null,"good_looking":true,"spouse":null,"height":179,"alcohol_level":0.0}]})");
 	}
 
 	TEST(ReflectionTest, json_to_struct)

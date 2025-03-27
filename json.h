@@ -34,7 +34,7 @@ namespace vs::json::set
 	void value(::rapidjson::Value& v, ::rapidjson::MemoryPoolAllocator<>&, std::uint64_t const u);
 	void value(::rapidjson::Value& v, ::rapidjson::MemoryPoolAllocator<>&, bool const b);
 	void value(::rapidjson::Value& v, ::rapidjson::MemoryPoolAllocator<>&, std::nullopt_t);
-	void value(::rapidjson::Value& v, ::rapidjson::MemoryPoolAllocator<>&, double const f);
+	void value(::rapidjson::Value& v, ::rapidjson::MemoryPoolAllocator<>&, double const f, std::uint16_t const precision);
 	void value(::rapidjson::Value& v, ::rapidjson::MemoryPoolAllocator<>& mpa, vs::date_time::time_point const& tp);
 
 	template <typename T>
@@ -56,7 +56,14 @@ namespace vs::json::set
 			{
 				::rapidjson::Value jname(::rapidjson::StringRef(name.data(), name.size()));
 				::rapidjson::Value jvalue;
-				value(jvalue, mpa, field_value);
+				if constexpr (std::is_same_v<std::remove_cvref_t<decltype(field_value)>, double>)
+				{
+					value(jvalue, mpa, field_value, 6);
+				}
+				else
+				{
+					value(jvalue, mpa, field_value);
+				}
 
 				obj.AddMember(jname, jvalue, mpa);
 			});
